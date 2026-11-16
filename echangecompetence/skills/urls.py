@@ -5,7 +5,7 @@ from . import views
 
 app_name = "skills"
 urlpatterns = [
-    path("deconnection/", LogoutView.as_view(next_page="polls:index"), name="deconnection"),
-    path("connection/", LoginView.as_view(template_name = "polls/connection.html", next_page = "polls:index"), name = "connection"),
+    path("deconnection/", LogoutView.as_view(next_page="skills:index"), name="deconnection"),
+    path("connection/", LoginView.as_view(template_name = "skills/connection.html", next_page = "skills:index"), name = "connection"),
     path("", views.IndexView.as_view(), name="index"),
 ]
