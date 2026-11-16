@@ -1,0 +1,34 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="RKbrhu4Z7Cn_EScgiraV">
+    <mxGraphModel dx="1484" dy="799" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="NiaWxnjLD11ucmYvbSY--1" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="550" width="654" x="80" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="NiaWxnjLD11ucmYvbSY--2" parent="NiaWxnjLD11ucmYvbSY--1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="531.38" width="640" y="18.62" as="geometry" />
+        </mxCell>
+        <mxCell id="NiaWxnjLD11ucmYvbSY--4" parent="NiaWxnjLD11ucmYvbSY--1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&amp;nbsp;Skills echange" vertex="1">
+          <mxGeometry height="27.931034482758616" width="130" x="262" y="39.995862068965515" as="geometry" />
+        </mxCell>
+        <mxCell id="NiaWxnjLD11ucmYvbSY--11" parent="NiaWxnjLD11ucmYvbSY--1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Maquette page accueil" vertex="1">
+          <mxGeometry height="13.965517241379308" width="130" as="geometry" />
+        </mxCell>
+        <mxCell id="NiaWxnjLD11ucmYvbSY--49" parent="NiaWxnjLD11ucmYvbSY--1" style="rounded=0;whiteSpace=wrap;html=1;" value="skills" vertex="1">
+          <mxGeometry height="60" width="120" x="267" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="NiaWxnjLD11ucmYvbSY--50" parent="NiaWxnjLD11ucmYvbSY--1" style="rounded=0;whiteSpace=wrap;html=1;" value="skills" vertex="1">
+          <mxGeometry height="60" width="120" x="267" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="NiaWxnjLD11ucmYvbSY--51" parent="NiaWxnjLD11ucmYvbSY--1" style="rounded=0;whiteSpace=wrap;html=1;" value="skills" vertex="1">
+          <mxGeometry height="60" width="120" x="267" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="NiaWxnjLD11ucmYvbSY--52" parent="NiaWxnjLD11ucmYvbSY--1" style="rounded=0;whiteSpace=wrap;html=1;" value="skills" vertex="1">
+          <mxGeometry height="60" width="120" x="272" y="400" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
