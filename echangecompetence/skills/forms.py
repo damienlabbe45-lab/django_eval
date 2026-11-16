@@ -2,7 +2,7 @@ from django.forms import DateTimeInput, ModelForm
 from django.utils import timezone
 from .models import SkillsDate
 
-class QuestionForm(ModelForm):
+class SkillsForm(ModelForm):
     """classe pour créé les skills avec les horaires"""
 
     class Meta:
