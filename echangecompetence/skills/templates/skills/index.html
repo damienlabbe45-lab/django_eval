@@ -2,9 +2,9 @@
 
 
 {% block sondages %}
-{% if latest_skills_list %}
+{% if latest_skills_date_list %}
     <ul>
-    {% for skills in latest_skills_list %}
+    {% for skills in latest_skills_date_list %}
         <li>{{skills.name_skills}}  {{ skills.date }} /a></li>
     {% endfor %}
     </ul>
