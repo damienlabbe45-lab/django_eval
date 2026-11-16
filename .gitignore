@@ -1,0 +1,4 @@
+*.pyc*
+\eval.venv\*
+*.bat
+Evaluation_projet_Web-v1.4.pdf
