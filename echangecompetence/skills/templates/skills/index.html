@@ -1,0 +1,14 @@
+{% extends "polls/base.html" %}
+
+
+{% block sondages %}
+{% if latest_skills_list %}
+    <ul>
+    {% for skills in latest_skills_list %}
+        <li>{{skills.name_skills}}  {{ skills.date }} /a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>pas d'activité.</p>
+{% endif %}
+{% endblock %}
