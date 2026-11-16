@@ -14,7 +14,7 @@ from .forms import SkillsForm
 
 
 class IndexView(generic.ListView):
-    template_name = "polls/index.html"
+    template_name = "skills/index.html"
     context_object_name = "latest_skills_date_list"
 
     def get_queryset(self):
