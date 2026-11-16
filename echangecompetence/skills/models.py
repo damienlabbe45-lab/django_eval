@@ -1,5 +1,4 @@
 from django.db.models import CharField, Model, DateTimeField, BooleanField, ForeignKey, CASCADE
-from django.contrib.auth.models import AbstractUser
 
 class Skills(Model):
     name_skills:CharField =CharField(max_length = 500)
@@ -15,7 +14,7 @@ class SkillsDate(Model):
         return  f" {self.skills}   {self.date}"
 
 class Useremail(Model):
-    user = AbstractUser
+    user =ForeignKey('auth.User', on_delete=CASCADE)
     email:CharField = CharField(max_length = 100)
 
     def __str__(self) -> str:
