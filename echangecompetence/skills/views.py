@@ -32,4 +32,17 @@ class IndexView(generic.ListView):
         :10
     ]
 
+@login_required(login_url="/skills/connection") # type: ignore
+def create_skills_user(request):
+    if request.method == "POST":
+        form = SkillsForm(request.POST)
+        if form.is_valid():
+            form.instance.user = request.user
+            form.save()
+            messages.success(request, "Votre sondage a bien été créé avec succès !")
+            return redirect("skills:index")
+    else:
+        form = SkillsForm()
+        return render(request, "skills/add_skills.html", {"form": form})
+
 
