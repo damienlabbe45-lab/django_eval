@@ -41,13 +41,14 @@
     {% csrf_token %}
     <button type="submit">Se déconnecter</button>
 </form>
-{% if "/index" in request.path %}
+{% if "/" == request.path %}
 <a href="{% url 'skills:add_skills' %}">ajouter un talent ou un besoin d'aide</a>
 
 {% else %}<a href="{% url 'skills:index' %}"><- retour à l'auccueil</a>
-
+{% endif %}
 {% else %}
 {% if "/connection/" not in request.path %}
+
 <a href="{% url 'skills:connection' %}">se connecter</a>
 
 {% endif %}
