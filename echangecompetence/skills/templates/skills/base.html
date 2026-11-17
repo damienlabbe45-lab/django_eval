@@ -32,6 +32,12 @@
 
 {% endblock %}
 <br>
+{% if "all_skills" not in request.path %}
+<a href="{% url 'skills:all_skills' %}">voir tout les compétences ou besoins possibles</a>
+<br>
+<br>
+{% endif %}
+
 {% if request.user.is_authenticated %}
 {{request.user.username}} <br>
 
@@ -43,6 +49,7 @@
 </form>
 {% if "/skills/" == request.path %}
 <a href="{% url 'skills:add_skills' %}">ajouter un talent ou un besoin d'aide</a>
+
 
 {% else %}<a href="{% url 'skills:index' %}"><- retour à l'auccueil</a>
 {% endif %}
