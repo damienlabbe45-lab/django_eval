@@ -71,7 +71,33 @@ VALUES ('2025-06-22', '2027-07-15', FALSE, 1),
 ('2026-06-22', '2027-09-15', TRUE, 12),
 ('2027-06-22', '2027-10-15', TRUE, 12);
 
+INSERT OR IGNORE skills_useremail(user_id, email)
+SELECT auth_user.id, auth_user.email FROM auth_user
 
+INSERT OR IGNORE skills_userskills(Skills_id, user_id)
+VALUES (1,5),
+(1,9),
+(2,8),
+(2,2),
+(3,3),
+(4,20),
+(5,10),
+(6,12),
+(7,1),
+(8,7),
+(9,11),
+(10,4),
+(11,5),
+(12,6),
+(13,13),
+(14,15),
+(15,19),
+(16,14),
+(17,16),
+(18,17),
+(19,14);
 
-
+INSERT OR IGNORE skills_userskills(Skills_id, user_id)
+SELECT skills_skillsdate.id , 14 FROM skills_skillsdate
+WHERE skills_skillsdate.id > 19;
 
