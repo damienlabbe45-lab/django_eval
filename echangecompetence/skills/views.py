@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
 
-from .models import SkillsDate, Skills
+from .models import SkillsDate, Skills, UserSkills
 from .forms import SkillsForm
 #from .user import create_user
 #from django.db import connection
@@ -27,7 +27,7 @@ class IndexView(generic.ListView):
         #    cursor.executescript(sql_content)
             
         #create_user() fonction qui a servi à créé les utilisateurs directement
-        return SkillsDate.objects.filter(boolean = False ).order_by("-date_before")[
+        return SkillsDate.objects.filter(boolean = False ,skills__name_skills__contains='aide ').order_by("-date_before")[
         :10
     ]
 
@@ -38,6 +38,7 @@ class AllskillsView(IndexView):
     def get_queryset(self):
             """Return the skills."""
             return Skills.objects.order_by("name_skills")
+
 
 
 @login_required(login_url="/skills/connection") # type: ignore
@@ -54,6 +55,9 @@ def create_skills_user(request):
     else:
         form = SkillsForm()
         return render(request, "skills/add_skills.html", {"form": form})
+     
+          
+
 
 
 
