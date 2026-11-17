@@ -11,6 +11,7 @@ from django.views import generic
 
 from .models import SkillsDate
 from .forms import SkillsForm
+#from .user import create_user
 
 
 class IndexView(generic.ListView):
@@ -19,6 +20,7 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """Return the last five published questions."""
+        #create_user() fonction qui a servi à créé les utilisateurs directement
         return SkillsDate.objects.filter(boolean = False ).order_by("-date_before")[
         :10
     ]
