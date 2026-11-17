@@ -40,7 +40,8 @@ def create_skills_user(request):
             form.instance.user = request.user
             form.instance.boolean = True
             form.save()
-            messages.success(request, "Votre sondage a bien été créé avec succès !")
+            message = f"Votre {"besoin " if "aide" in form.instance.skills else "compétence "} a bien été enregistré avec succès !"
+            messages.success(request, message)
             return redirect("skills:index")
     else:
         form = SkillsForm()
