@@ -38,6 +38,7 @@ def create_skills_user(request):
         form = SkillsForm(request.POST)
         if form.is_valid():
             form.instance.user = request.user
+            form.instance.boolean = True
             form.save()
             messages.success(request, "Votre sondage a bien été créé avec succès !")
             return redirect("skills:index")
