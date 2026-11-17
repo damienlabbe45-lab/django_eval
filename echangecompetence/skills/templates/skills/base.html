@@ -41,7 +41,7 @@
     {% csrf_token %}
     <button type="submit">Se déconnecter</button>
 </form>
-{% if "/" == request.path %}
+{% if "/skills/" == request.path %}
 <a href="{% url 'skills:add_skills' %}">ajouter un talent ou un besoin d'aide</a>
 
 {% else %}<a href="{% url 'skills:index' %}"><- retour à l'auccueil</a>
