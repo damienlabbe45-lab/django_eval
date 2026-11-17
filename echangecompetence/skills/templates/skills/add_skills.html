@@ -1,0 +1,17 @@
+{% extends "skills/base.html" %}
+
+
+{% block titre %}
+ajouter talent ou besoin
+{% endblock %}
+
+{% block sondages %}
+<form method="post">
+{% csrf_token %}
+
+{{ form.as_table }}
+    <button type="submit">ajouter</button>
+</form>
+
+
+{% endblock %}
