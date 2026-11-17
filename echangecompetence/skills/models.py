@@ -3,6 +3,9 @@ from django.db.models import CharField, Model, DateTimeField, BooleanField, Fore
 class Skills(Model):
     name_skills:CharField =CharField(max_length = 500)
 
+    def __str__(self):
+        return self.name_skills
+
 class SkillsDate(Model):
     skills = ForeignKey(Skills, on_delete=CASCADE)
     date_begin: DateTimeField = DateTimeField("date published")
