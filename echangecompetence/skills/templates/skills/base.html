@@ -54,6 +54,10 @@
 
 <a href="{% url 'skills:search_skills' %}">rechercher les personnes qui ont besoin de votre aide</a>
 
+<br>
+
+<a href="{% url 'skills:search_skills_help' %}">rechercher les personnes qui peuvent vous aider</a>
+
 {% else %}<a href="{% url 'skills:index' %}"><- retour à l'auccueil</a>
 {% endif %}
 {% else %}
