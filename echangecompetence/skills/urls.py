@@ -5,6 +5,7 @@ from . import views
 
 app_name = "skills"
 urlpatterns = [
+    path("search_help_skills/", views.SkillsUserHelpView.as_view(), name="search_skills_help"),
     path("search_skills/", views.SkillsUserView.as_view(), name="search_skills"),
     path("all_skills/", views.AllskillsView.as_view(), name="all_skills"),
     path("add_skills/", views.create_skills_user, name="add_skills"), # type: ignore
