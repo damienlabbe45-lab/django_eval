@@ -1,0 +1,17 @@
+{% extends "skills/base.html" %}
+
+{% block title %}
+personnes ayant besoin de vos compétecences
+    {% endblock %}
+
+{% block sondages %}
+{% if latest_skills_date_list %}
+    <ul>
+    {% for skills in latest_skills_date_list %}
+        <li>{{skills.0}}  {{skills.1}} : {{skills.2}}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>pas d'activité.</p>
+{% endif %}
+{% endblock %}
