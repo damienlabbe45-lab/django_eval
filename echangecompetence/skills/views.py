@@ -62,7 +62,7 @@ class SkillsUserView(IndexView):
             # utilisateurs qui ne sont pas l'utilisateur actuel et qui ont besoin des compétences de l'utilisateur actuel.
             # Enfn on ne garde que leur nom d'utilisateur, leur adresse mail et les noms de leurs besoins.  le target_us, et autre est 
             # juste un renommage de table temporaire qui sert à mieux comprendre qui fait quoi pour les personnes qui lisent la requète
-            con.execute("""SELECT DICTINCT auth_user.username, skills_useremail.email, skills_skills.name_skills 
+            con.execute("""SELECT DISTINCT auth_user.username, skills_useremail.email, skills_skills.name_skills 
             FROM skills_userskills 
             JOIN skills_useremail ON skills_userskills.user_id = skills_useremail.id 
             JOIN auth_user ON skills_useremail.user_id = auth_user.id 
