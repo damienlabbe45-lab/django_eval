@@ -16,6 +16,9 @@ class Useremail(Model):
     user =ForeignKey('auth.User', on_delete=CASCADE)
     email:CharField = CharField(max_length = 100)
 
+    def __str__(self):
+        return f"{self.user.username} {self.email}"
+
 
 class UserSkills(Model):
     user = ForeignKey('Useremail', on_delete=CASCADE)
