@@ -1,4 +1,3 @@
-from typing import Any
 from django.db import connection
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
