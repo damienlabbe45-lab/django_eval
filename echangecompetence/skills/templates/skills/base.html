@@ -50,6 +50,9 @@
 {% if "/skills/" == request.path %}
 <a href="{% url 'skills:add_skills' %}">ajouter un talent ou un besoin d'aide</a>
 
+<br>
+
+<a href="{% url 'skills:search_skills' %}">rechercher les personnes qui ont besoin de votre aide</a>
 
 {% else %}<a href="{% url 'skills:index' %}"><- retour à l'auccueil</a>
 {% endif %}
