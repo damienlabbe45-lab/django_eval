@@ -4,3 +4,4 @@
 Evaluation_projet_Web-v1.4.pdf
 *.sqlite3
 *\user.py
+*.log
