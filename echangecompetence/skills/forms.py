@@ -1,11 +1,13 @@
 from django.forms import DateTimeInput, ModelForm
 from django.utils import timezone
+
 from .models import SkillsDate
 
 class SkillsForm(ModelForm):
-    """classe pour créé les skills avec les horaires"""
+    """class to create skills and needs with the opening hours"""
 
     class Meta:
+        """true class to create the formula of SkillsDate to create """
         model = SkillsDate
         fields = ["skills", "date_begin", "date_before"]
         labels = {
@@ -25,8 +27,8 @@ class SkillsForm(ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        """initialize for the sub-class the formula. self.initial in default is the value of date is today."""
         super().__init__(*args, **kwargs)
-        # Valeur par défaut : la date actuelle
         if not self.instance.pk and not self.initial.get("date_begin"):
             self.initial["date_begin"] = timezone.now().strftime("%Y-%m-%dT")
 
