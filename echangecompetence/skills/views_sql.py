@@ -1,18 +1,37 @@
 from asgiref.sync import sync_to_async
 from django.db import connection
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
+from django.contrib.auth.mixins import AccessMixin
+from django.contrib.auth.views import redirect_to_login
+from django.urls import reverse_lazy
 from typing import override
 
 from .views import IndexView
 
 
-#le décorateur method_decorator pour que un autre décorateur qui normalement s'applique à une fonction s'applique à une classe 
-#et à ses classes filles ou name précise le nom de la fonction. ici en l'occurence dispatch avec login_required
-@method_decorator(login_required(login_url="/skills/connection"), name='dispatch' )# type: ignore
-class SkillsUserView(IndexView):
+
+class AsyncLoginRequiredMixin(AccessMixin):
+    """Asynchronous version of LoginRequiredMixin for views with async get/post."""
+
+    async def handle_no_permission(self):
+        '''function for a redirecting URL'''
+        return await sync_to_async(redirect_to_login)(
+            self.request.get_full_path(), # type: ignore
+            self.get_login_url(),
+            self.get_redirect_field_name(),
+        )
+
+    async def dispatch(self, request, *args, **kwargs):
+        """check if a user is connected. if connected, the user goes to the url he wants. else, the user 
+        is redirecting to another URL."""
+        user = await request.auser()
+        if not user.is_authenticated:
+            return await self.handle_no_permission()
+        return await super().dispatch(request, *args, **kwargs) # type: ignore
+    
+class SkillsUserView(AsyncLoginRequiredMixin, IndexView):
     """View for the current user can help the other users"""
     template_name = "skills/search_skills.html"
+    login_url = reverse_lazy("skills:connection")
 
     def _fetch_rows(self, auth_id):
         """Returns users whom the current user can help in a SQL request."""
