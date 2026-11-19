@@ -1,3 +1,4 @@
+from asgiref.sync import sync_to_async
 from django.forms import DateTimeInput, ModelForm
 from django.utils import timezone
 
@@ -34,3 +35,8 @@ class SkillsForm(ModelForm):
 
         if not self.instance.pk and not self.initial.get("date_before"):
             self.initial["date_before"] = timezone.now().strftime("%Y-%m-%dT")
+
+
+    async def asave(self, commit:bool = True):
+        """sync_to_async convert the synchrone function save  to asynchronous function"""
+        return await sync_to_async(self.save)(commit)
