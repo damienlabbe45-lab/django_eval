@@ -37,6 +37,21 @@ class SkillsForm(ModelForm):
             self.initial["date_before"] = timezone.now().strftime("%Y-%m-%dT")
 
 
+
     async def asave(self, commit:bool = True):
         """sync_to_async convert the synchrone function save  to asynchronous function"""
         return await sync_to_async(self.save)(commit)
+
+    def clean(self):
+        """verifiate if date_begin is inferior of date_before."""
+        cleaned_data = super().clean()
+        date_begin = cleaned_data.get("date_begin")
+        date_before = cleaned_data.get("date_before")
+
+        if date_begin and date_before and date_begin > date_before:
+            self.add_error(
+                "date_before",
+                "La date de fin de disponibilité doit être àprès ou égale à la date de début.",
+            )
+
+        return cleaned_data
