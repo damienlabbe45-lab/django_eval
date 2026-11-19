@@ -1,6 +1,7 @@
 from asgiref.sync import sync_to_async
 from django.db import connection
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from typing import override
 
 from .views import IndexView
