@@ -18,6 +18,7 @@ class IndexView(ListView):
     context_object_name = "latest_skills_date_list"
 
     def _get_items_sync(self):
+        """Return the last ten skills helping."""
          # ce qui va suivre en commentaire permet de savoir comment les données ont été insérés
 
         # #create_user() fonction qui a servi à créé les utilisateurs directement
@@ -37,9 +38,11 @@ class IndexView(ListView):
         )
 
     async def get_items(self):
+        """convert the synchronous function _get_items_sync(self) to asynchronous function """
         return await sync_to_async(self._get_items_sync)()
 
     async def get(self, request):
+        """fetch the result the function get_items and convert render to asycnhronous function"""
         items = await self.get_items()
         context = {
             self.context_object_name: items,
@@ -54,6 +57,7 @@ class AllskillsView(IndexView):
 
     @override
     def _get_items_sync(self): 
+        """Return the skills and need."""
         return list(Skills.objects.order_by("name_skills"))
 
 
@@ -65,6 +69,7 @@ class SkillsUserView(IndexView):
     template_name = "skills/search_skills.html"
 
     def _fetch_rows(self, auth_id):
+        """Returns users whom the current user can help in a SQL request."""
         with connection.cursor() as con:
             # il aurait été possible de utiliser l'orm.  mais ca aurait créé plusieurs requètes assez compliqué . et là on peut 
             # avec le sql faire cela en une seule requète sql. en résumé, la requète sql fait d'abord les jointures de la sous requète sql
@@ -95,6 +100,7 @@ class SkillsUserView(IndexView):
 
     @override
     async def get_items(self):
+        """fetch the user with a asynchronous function and fetch the results of _fetch_rows and transmitted the identifiant of the user"""
         user = await self.request.auser()
         return await sync_to_async(self._fetch_rows)(user.pk)
 
@@ -104,6 +110,7 @@ class SkillsUserHelpView(SkillsUserView):
 
     @override
     def _fetch_rows(self, auth_id):
+        """Returns users whom the current user can ask for help."""
         with connection.cursor() as con:
             # il aurait été possible de utiliser l'orm.  mais ca aurait créé plusieurs requètes assez compliqué . et là on peut 
             # avec le sql faire cela en une seule requète sql. en résumé, la requète sql fait d'abord les jointures de la sous requète sql
