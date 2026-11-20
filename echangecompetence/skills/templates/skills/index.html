@@ -8,7 +8,7 @@ page d'accueil
 {% if latest_skills_date_list %}
     <ul>
     {% for skills in latest_skills_date_list %}
-        <li>{{skills.skills.name_skills}}  {{ skills.date_begin }} à  {{skills.date_before}}</li>
+        <li>{{skills.skills}}  {{ skills.date_begin }} à  {{skills.date_before}}</li>
     {% endfor %}
     </ul>
 {% else %}
