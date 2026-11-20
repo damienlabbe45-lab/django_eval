@@ -8,7 +8,7 @@ personnes ayant besoin de vos compétecences
 {% if latest_skills_date_list %}
     <ul>
     {% for skills in latest_skills_date_list %}
-        <li>{{skills.0}}  {{skills.1}} : {{skills.2}}</li>
+        <li>{{skills.0}}  {{skills.1}} : {{skills.2}} du {{skills.3}} au {{skills.4}}</li>
     {% endfor %}
     </ul>
 {% else %}
