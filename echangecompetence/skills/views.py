@@ -28,7 +28,7 @@ class IndexView(ListView):
         return list(
             SkillsDate.objects.filter(
                 boolean=False,
-                skills__name_skills__contains="aide ",
+                skills__is_need=True,
             ).order_by("-date_before")[:10]
         )
 
