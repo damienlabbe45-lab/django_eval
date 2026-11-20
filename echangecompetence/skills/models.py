@@ -3,12 +3,13 @@ from django.db.models import CharField, Model, DateTimeField, BooleanField, Fore
 class Skills(Model):
     """models for the table skills_skills . this class represent the need and skills."""
     name_skills:CharField =CharField(max_length = 500)
+    is_need = BooleanField()
 
     class Meta:
-        constraints =[UniqueConstraint(fields=["name_skills"], name = "UniqueNameSkillsOrNeed" )]
+        constraints =[UniqueConstraint(fields=["name_skills","is_need"], name = "UniqueNameSkillsOrNeed" )]
 
     def __str__(self):
-        return self.name_skills
+        return f"{"aide pour " if self.is_need else ""}{self.name_skills}"
 
 class SkillsDate(Model):
     """models for the table SkillDate. this class represent the need and skills with this date"""
@@ -36,5 +37,5 @@ class Useremail(Model):
 class UserSkills(Model):
     """models for the table UserSkills. this class represent the association of skills or need with the user."""
     user = ForeignKey('Useremail', on_delete=CASCADE)
-    Skills= ForeignKey(SkillsDate, on_delete = CASCADE)
-    pk = CompositePrimaryKey("user_id","Skills_id")
+    skills= ForeignKey(SkillsDate, on_delete = CASCADE)
+    pk = CompositePrimaryKey("user","skills")
