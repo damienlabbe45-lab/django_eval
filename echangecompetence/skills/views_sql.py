@@ -45,21 +45,26 @@ class SkillsUserView(AsyncLoginRequiredMixin, IndexView):
             # juste un renommage de table temporaire qui sert à mieux comprendre qui fait quoi pour les personnes qui lisent la requète
 
             con.execute(
-                """SELECT DISTINCT auth_user.username, skills_useremail.email, skills_skills.name_skills,date_begin, date_before
+                """SELECT DISTINCT auth_user.username, skills_useremail.email, "aide pour " || skills_skills.name_skills, date_begin, 
+                date_before
                 FROM skills_userskills
-                JOIN skills_useremail ON skills_userskills.user_id = skills_useremail.id
+                JOIN skills_useremail ON skills_userskills.user = skills_useremail.id
                 JOIN auth_user ON skills_useremail.user_id = auth_user.id
-                JOIN skills_skillsdate ON skills_userskills.Skills_id = skills_skillsdate.id
+                JOIN skills_skillsdate ON skills_userskills.skills = skills_skillsdate.id
                 JOIN skills_skills ON skills_skillsdate.skills_id = skills_skills.id
                 WHERE skills_useremail.user_id != :auth_id
+                AND is_need = True
                 AND boolean = True
-                AND EXISTS (SELECT 1
-                FROM skills_userskills target_us
-                JOIN skills_useremail target_ue ON target_us.user_id = target_ue.id
-                JOIN skills_skillsdate target_ssd ON target_us.Skills_id = target_ssd.id
-                JOIN skills_skills target_skills ON target_ssd.skills_id = target_skills.id
-                WHERE target_ue.user_id = :auth_id
-                AND 'aide pour ' || target_skills.name_skills = skills_skills.name_skills)""",
+                AND EXISTS (
+                    SELECT 1
+                    FROM skills_userskills target_us
+                    JOIN skills_useremail target_ue ON target_us.user = target_ue.id
+                    JOIN skills_skillsdate target_ssd ON target_us.skills = target_ssd.id
+                    JOIN skills_skills target_skills ON target_ssd.skills_id = target_skills.id
+                    WHERE target_ue.user_id = :auth_id
+                    AND target_skills.name_skills = skills_skills.name_skills
+                    AND is_need = False
+                )""",
                 {"auth_id": auth_id},
             )
             return con.fetchall()
@@ -88,20 +93,23 @@ class SkillsUserHelpView(SkillsUserView):
             con.execute(
                 """SELECT DISTINCT auth_user.username, skills_useremail.email, skills_skills.name_skills, date_begin, date_before
                 FROM skills_userskills
-                JOIN skills_useremail ON skills_userskills.user_id = skills_useremail.id
+                JOIN skills_useremail ON skills_userskills.user = skills_useremail.id
                 JOIN auth_user ON skills_useremail.user_id = auth_user.id
-                JOIN skills_skillsdate ON skills_userskills.Skills_id = skills_skillsdate.id
+                JOIN skills_skillsdate ON skills_userskills.skills = skills_skillsdate.id
                 JOIN skills_skills ON skills_skillsdate.skills_id = skills_skills.id
                 WHERE skills_useremail.user_id != :auth_id
                 AND boolean = True
+                AND is_need = False
                 AND EXISTS (
                     SELECT 1
                     FROM skills_userskills target_us
-                    JOIN skills_useremail target_ue ON target_us.user_id = target_ue.id
-                    JOIN skills_skillsdate target_ssd ON target_us.Skills_id = target_ssd.id
+                    JOIN skills_useremail target_ue ON target_us.user = target_ue.id
+                    JOIN skills_skillsdate target_ssd ON target_us.skills = target_ssd.id
                     JOIN skills_skills target_skills ON target_ssd.skills_id = target_skills.id
-                    WHERE target_ue.user_id = :auth_id AND target_skills.name_skills like 'aide pour %%'
-                    AND SUBSTR(target_skills.name_skills, 11) = skills_skills.name_skills)""",
+                    WHERE target_ue.user_id = :auth_id
+                    AND is_need = True
+                    AND target_skills.name_skills = skills_skills.name_skills
+                )""",
                 {"auth_id": auth_id},
             )
             return con.fetchall()
