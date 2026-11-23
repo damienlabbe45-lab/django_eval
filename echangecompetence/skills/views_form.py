@@ -20,7 +20,7 @@ async def create_skills_user(request):
             user_email = await Useremail.objects.aget(user=current_user)
             await UserSkills.objects.acreate(
                 user=user_email,
-                Skills=skills,
+                skills=skills,
             )
             message = (
                 f"Votre {'besoin ' if 'aide' in form.instance.skills.name_skills else 'compétence '}"
