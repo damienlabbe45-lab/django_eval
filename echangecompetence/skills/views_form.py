@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from .forms import SkillsForm
-from .models import UserSkills, Useremail
+from .models import UserSkills
 
 
 @login_required(login_url="/skills/connection")  # type: ignore
@@ -17,9 +17,8 @@ async def create_skills_user(request):
             form.instance.boolean = True
             skills = await form.asave()
             current_user = await request.auser()
-            user_email = await Useremail.objects.aget(user=current_user)
             await UserSkills.objects.acreate(
-                user=user_email,
+                user=current_user,
                 skills=skills,
             )
             message = (

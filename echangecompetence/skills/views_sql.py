@@ -45,23 +45,22 @@ class SkillsUserView(AsyncLoginRequiredMixin, IndexView):
             # juste un renommage de table temporaire qui sert à mieux comprendre qui fait quoi pour les personnes qui lisent la requète
 
             con.execute(
-                """SELECT DISTINCT auth_user.username, skills_useremail.email, "aide pour " || skills_skills.name_skills, date_begin, 
+                """SELECT DISTINCT auth_user.username, auth_user.email, "aide pour " || skills_skills.name_skills, date_begin, 
                 date_before
                 FROM skills_userskills
-                JOIN skills_useremail ON skills_userskills.user = skills_useremail.id
-                JOIN auth_user ON skills_useremail.user_id = auth_user.id
+                JOIN auth_user ON skills_userskills.user = auth_user.id
                 JOIN skills_skillsdate ON skills_userskills.skills = skills_skillsdate.id
                 JOIN skills_skills ON skills_skillsdate.skills_id = skills_skills.id
-                WHERE skills_useremail.user_id != :auth_id
+                WHERE auth_user.id != :auth_id
                 AND is_need = True
                 AND boolean = True
                 AND EXISTS (
                     SELECT 1
                     FROM skills_userskills target_us
-                    JOIN skills_useremail target_ue ON target_us.user = target_ue.id
+                    JOIN auth_user target_ue ON target_us.user = auth_user.id
                     JOIN skills_skillsdate target_ssd ON target_us.skills = target_ssd.id
                     JOIN skills_skills target_skills ON target_ssd.skills_id = target_skills.id
-                    WHERE target_ue.user_id = :auth_id
+                    WHERE target_ue.id = :auth_id
                     AND target_skills.name_skills = skills_skills.name_skills
                     AND is_need = False
                 )""",
@@ -91,22 +90,21 @@ class SkillsUserHelpView(SkillsUserView):
             # Enfn on ne garde que leur nom d'utilisateur, leur adresse mail et les noms de leurs besoins.  le target_us, et autre est 
             # juste un renommage de table temporaire qui sert à mieux comprendre qui fait quoi pour les personnes qui lisent la requète
             con.execute(
-                """SELECT DISTINCT auth_user.username, skills_useremail.email, skills_skills.name_skills, date_begin, date_before
+                """SELECT DISTINCT auth_user.username, auth_user.email, skills_skills.name_skills, date_begin, date_before
                 FROM skills_userskills
-                JOIN skills_useremail ON skills_userskills.user = skills_useremail.id
-                JOIN auth_user ON skills_useremail.user_id = auth_user.id
+                JOIN auth_user ON skills_userskills.user = auth_user.id
                 JOIN skills_skillsdate ON skills_userskills.skills = skills_skillsdate.id
                 JOIN skills_skills ON skills_skillsdate.skills_id = skills_skills.id
-                WHERE skills_useremail.user_id != :auth_id
+                WHERE auth_user.id != :auth_id
                 AND boolean = True
                 AND is_need = False
                 AND EXISTS (
                     SELECT 1
                     FROM skills_userskills target_us
-                    JOIN skills_useremail target_ue ON target_us.user = target_ue.id
+                    JOIN auth_user target_ue ON target_us.user = target_ue.id
                     JOIN skills_skillsdate target_ssd ON target_us.skills = target_ssd.id
                     JOIN skills_skills target_skills ON target_ssd.skills_id = target_skills.id
-                    WHERE target_ue.user_id = :auth_id
+                    WHERE target_ue.id = :auth_id
                     AND is_need = True
                     AND target_skills.name_skills = skills_skills.name_skills
                 )""",
