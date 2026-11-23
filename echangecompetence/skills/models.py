@@ -36,6 +36,6 @@ class Useremail(Model):
 
 class UserSkills(Model):
     """models for the table UserSkills. this class represent the association of skills or need with the user."""
-    user = ForeignKey('Useremail', on_delete=CASCADE)
-    skills= ForeignKey(SkillsDate, on_delete = CASCADE)
+    user = ForeignKey('Useremail', on_delete=CASCADE, db_column="user")
+    skills= ForeignKey(SkillsDate, on_delete = CASCADE, db_column = "skills")
     pk = CompositePrimaryKey("user","skills")
